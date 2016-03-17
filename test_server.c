@@ -69,7 +69,7 @@ int sayhello_to(char *name)
 {
 	static int cnt = 0;
 	fprintf(stderr, "say hello to %s: %d\n", name,cnt++);
-	return 888;
+	return cnt;
 }
 int hello_service_handler(struct binder_state *bs,
                    struct binder_transaction_data *txn,
@@ -145,12 +145,12 @@ int main(int argc, char **argv)
 
     /* add service */
 	ret = svcmgr_publish(bs, svcmgr, "hello", (void *)123);
-	if (!ret) {
+	if (ret) {
         fprintf(stderr, "failed to publish hello service\n");
         return -1;
     }
-	ret = svcmgr_publish(bs, svcmgr, "goodbye", (void *)123);
-	if (!ret) {
+	ret = svcmgr_publish(bs, svcmgr, "goodbye", (void *)124);
+	if (ret) {
         fprintf(stderr, "failed to publish goodbye service\n");
   
     }

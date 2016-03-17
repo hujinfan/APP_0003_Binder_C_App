@@ -19,3 +19,17 @@ mount -t nfs -o nolock 192.168.7.163:/work /mnt
 3.git tag v2
 4.git push origin master
 5.git push origin --tags
+
+²âÊÔÃüÁî£º
+# ./service_manager &
+# ./test_server &
+# ./test_client hello
+# ./test_client hello hujinfan
+# killall service_manager test_server
+
+°æ±¾3£º
+1.git add -A
+2.git commit -m "v3, test and run"
+3.git tag v3
+4.git push origin master
+5.git push origin --tags
