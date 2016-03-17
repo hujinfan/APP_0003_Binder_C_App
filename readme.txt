@@ -33,3 +33,10 @@ mount -t nfs -o nolock 192.168.7.163:/work /mnt
 3.git tag v3
 4.git push origin master
 5.git push origin --tags
+
+°æ±¾4£º
+1.git add -A
+2.git commit -m "v4, add saygoodbye and saygoodbye_to"
+3.git tag v3
+4.git push origin master
+5.git push origin --tags
