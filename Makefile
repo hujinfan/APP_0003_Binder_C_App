@@ -13,4 +13,7 @@ test_server : test_server.o binder.o
 	arm-linux-gcc -o $@ $^
 
 %.o : %.c
-	arm-linux-gcc -c -o $@ $<
+	arm-linux-gcc -DBINDER_IPC_32BIT=1 -I include -c -o $@ $<
+
+clean:
+	rm $(APPS) -f; rm -f *.o

@@ -102,6 +102,7 @@ int hello_service_handler(struct binder_state *bs,
     case HELLO_SVR_CMD_SAYHELLO:
 		sayhello();
 		return 0;
+		
     case HELLO_SVR_CMD_SAYHELLO_TO:
 		/* 从msg里取出字符串 */
 		s = bio_get_string16(msg, &len);
@@ -116,7 +117,7 @@ int hello_service_handler(struct binder_state *bs,
       	i = sayhello_to(name);
 
 		/* 把结果放入reply */
-		bio_put_string16(reply, (const uint16_t *)i);
+		bio_put_uint32(reply, i);
 		
 		break;
 		

@@ -77,7 +77,7 @@ int sayhello_to(char * name)
     bio_put_uint32(&msg, 0);  // strict mode header
     
 	/* 放入参数 */
-	 bio_put_string16_x(&msg, name);
+	bio_put_string16_x(&msg, name);
 	
 	/* 调用binder_call */	
 	if (binder_call(g_bs, &msg, &reply, g_handle, HELLO_SVR_CMD_SAYHELLO_TO))

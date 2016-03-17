@@ -54,9 +54,7 @@ int str16eq(const uint16_t *a, const char *b)
     return 1;
 }
 
-static int selinux_enabled;
 static char *service_manager_context;
-static struct selabel_handle* sehandle;
 
 static bool check_mac_perms(pid_t spid, const char *tctx, const char *perm, const char *name)
 {
@@ -203,6 +201,8 @@ int do_add_service(struct binder_state *bs,
         si->next = svclist;
         svclist = si;
     }
+
+    ALOGI("add_service('%s'), handle = %d\n", str8(s, len), handle);
 
     binder_acquire(bs, handle);
     binder_link_to_death(bs, handle, &si->death);
