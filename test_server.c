@@ -208,12 +208,15 @@ int test_server_handler(struct binder_state *bs,
                    struct binder_io *msg,
                    struct binder_io *reply)
 {
-	if(txn->target.ptr == 123)
-		return hello_service_handler(bs, txn, msg, reply);
-	else if(txn->target.ptr == 124)
-		return goodbye_service_handler(bs, txn, msg, reply);
-	else
-		return -1;
+	int (*handler)(struct binder_state *bs,
+                   struct binder_transaction_data *txn,
+                   struct binder_io *msg,
+                   struct binder_io *reply);
+	handler = (int (*)(struct binder_state *bs,
+                   struct binder_transaction_data *txn,
+                   struct binder_io *msg,
+                   struct binder_io *reply))txn->target.ptr;
+	return handler(bs, txn, msg, reply);
 }
 
 
@@ -232,12 +235,12 @@ int main(int argc, char **argv)
     }
 
     /* add service */
-	ret = svcmgr_publish(bs, svcmgr, "hello", (void *)123);
+	ret = svcmgr_publish(bs, svcmgr, "hello", hello_service_handler);
 	if (ret) {
         fprintf(stderr, "failed to publish hello service\n");
         return -1;
     }
-	ret = svcmgr_publish(bs, svcmgr, "goodbye", (void *)124);
+	ret = svcmgr_publish(bs, svcmgr, "goodbye", goodbye_service_handler);
 	if (ret) {
         fprintf(stderr, "failed to publish goodbye service\n");
   
